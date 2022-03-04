@@ -25,8 +25,8 @@
       }
 
       function App() {
+        grist.ready();
         const datum = async (cmd) => {
-          grist.ready();
           grist.onRecord((data) => cmd.output(data));
           return;
         };
