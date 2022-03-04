@@ -26,9 +26,8 @@
 
       function App() {
         grist.ready();
-        const datum = async (cmd) => {
-          grist.onRecord((data) => cmd.output(data));
-          return;
+        const datum = async () => {
+          grist.onRecord((record) => record);
         };
         return (
           <section>
