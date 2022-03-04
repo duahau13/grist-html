@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>reactjs Search Results</title>
+    <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      function Link(props) {
+        return (
+          <div>
+            <a href={props.url}>{props.title}</a>
+            <div>
+              <h3>{props.shortUrl}</h3>
+            </div>
+            <div>{props.excerpt}</div>
+          </div>
+        );
+      }
+
+      function App() {
+        const datum = async (cmd) => {
+          grist.ready();
+          grist.onRecord((data) => cmd.output(data));
+          return;
+        };
+        return (
+          <section>
+            <p>Hello {datum.Name}</p>
+            <Link
+              title="React - A JavaScript Library for Building User Interfaces"
+              url="https://reactjs.org"
+              // props consisting of two or more words must be written in camelcase
+              shortUrl="reactjs.org"
+              excerpt="React makes it painless to create interactive UIs."
+            />
+          </section>
+        );
+      }
+
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
