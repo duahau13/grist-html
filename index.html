@@ -10,7 +10,6 @@
 
   <body>
     <div id="root"></div>
-
     <script type="text/babel">
       function Link(props) {
         return (
@@ -25,21 +24,13 @@
       }
 
       function App() {
-        grist.ready();
-        const datum = async () => {
-          grist.onRecord((record) => record);
-        };
-        return (
-          <section>
-            <p>Hello {datum.Name}</p>
-            <Link
-              title="React - A JavaScript Library for Building User Interfaces"
-              url="https://reactjs.org"
-              // props consisting of two or more words must be written in camelcase
-              shortUrl="reactjs.org"
-              excerpt="React makes it painless to create interactive UIs."
-            />
-          </section>
+        const [data, setData] = React.useState({});
+        React.useEffect(() => { 
+          grist.onRecord((record) => setData(record));
+          grist.ready();
+        }, []);
+        return (          
+          <p>Hello {data.Name}</p>
         );
       }
 
